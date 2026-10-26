@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a1626"/><stop offset="1" stop-color="#04080f"/></linearGradient>
+    <radialGradient id="lens" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#7ff0ff"/><stop offset="0.45" stop-color="#14a5c8"/><stop offset="1" stop-color="#062a3c"/></radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#e0a21c"/></linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg)"/>
+  <g transform="translate(40 40) scale(0.62)">
+    <path d="M136 168 C140 118 176 88 256 88 C336 88 372 118 376 168Z" fill="#000"/><path d="M146 150 H366 V170 H146Z" fill="#e0a21c"/>
+    <path d="M84 176 C120 160 392 160 428 176 C420 194 92 194 84 176Z" fill="#000"/>
+    <rect x="232" y="220" width="48" height="36" rx="10" fill="#000"/>
+    <circle cx="176" cy="256" r="76" fill="#000"/><circle cx="336" cy="256" r="76" fill="#000"/>
+    <circle cx="176" cy="256" r="56" fill="url(#lens)" stroke="url(#gold)" stroke-width="8"/><circle cx="336" cy="256" r="56" fill="url(#lens)" stroke="url(#gold)" stroke-width="8"/>
+    <circle cx="190" cy="262" r="18" fill="#04080f"/><circle cx="350" cy="262" r="18" fill="#04080f"/>
+    <circle cx="158" cy="236" r="12" fill="#fff" opacity="0.85"/><circle cx="318" cy="236" r="12" fill="#fff" opacity="0.85"/>
+  </g>
+  <g font-family="'Arial Black', Impact, sans-serif" font-weight="900">
+    <text x="400" y="190" font-size="140" fill="#fff" letter-spacing="6">HIGH</text>
+    <text x="404" y="345" font-size="140" fill="url(#gold)" letter-spacing="24">SPY</text>
+  </g>
+</svg>
