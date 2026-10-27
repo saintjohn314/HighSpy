@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>High Spy</title>
+<meta name="description" content="High Spy: a trippy hidden-object game for grown-ups. Hunt through photo-real piles of stoner gear and munchies, unlock surreal worlds, build your own artscapes and put your initials on the high score board.">
+<meta name="theme-color" content="#150e1b">
+<meta property="og:title" content="High Spy">
+<meta property="og:description" content="The hidden-object game for when you're a little lifted. Find the lighter. Then find the other lighter.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='26' cy='26' r='17' fill='%23f7b733' stroke='%23150e1b' stroke-width='6'/%3E%3Cpath d='M38 38l16 16' stroke='%23150e1b' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Shrikhand&display=swap">
+<link rel="stylesheet" href="style.css?v=6">
+</head>
+<body>
+
+<div class="loading" id="loading">
+  <div><div class="logo2">High Spy</div><div class="lbar"><i id="lbar"></i></div><small id="ltext">Packing the bowl…</small></div>
+</div>
+
+<!-- ================= HOME ================= -->
+<section id="home" hidden>
+  <header class="hero" id="hero">
+    <canvas id="heroCv" aria-hidden="true"></canvas>
+    <canvas id="smoke" aria-hidden="true" style="position:absolute"></canvas>
+    <div class="shade"></div>
+    <nav class="homenav" aria-label="Game menu">
+      <button class="ibtn" id="navTrophies"><svg class="i" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg><b>Trophies</b></button>
+      <button class="ibtn" id="navHof"><svg class="i" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b>High scores</b></button>
+      <button class="ibtn" id="navSettings" aria-label="Settings"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+    </nav>
+    <div class="hero-in">
+      <span class="kicker">A trippy hidden-object game · 21+</span>
+      <h1 class="logo">High Spy</h1>
+      <p class="tagline">Hunt through photo-real piles of stoner gear and munchies, then drift into surreal worlds. Find the lighter. Then find the <em>other</em> lighter.</p>
+      <div class="cta">
+        <button class="btn btn-gold" id="playBtn"><span class="play-ic"><svg viewBox="0 0 16 16"><path d="M3 1.5v13L14 8z"/></svg></span>Play <small id="playName"></small></button>
+        <button class="btn btn-ghost" id="dailyBtn"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span id="dailyLbl">Daily Sesh</span></button>
+        <button class="btn btn-gold buycta" id="buyBtn" hidden><svg class="i" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></svg>Unlock every level <small>$1</small></button>
+        <button class="btn btn-ghost" id="studioBtn"><svg class="i" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1 0 1.6-.8 1.6-1.6 0-.5-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5c0-4.3-4-7.6-9-7.6z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10.5" cy="7" r="1.2"/><circle cx="15" cy="7.5" r="1.2"/></svg>Make an artscape</button>
+      </div>
+    </div>
+  </header>
+  <main class="home-body">
+    <div class="topstrip">
+      <div class="card">
+        <div class="label">How baked are you?</div>
+        <div class="seg" id="seg" role="group" aria-label="Difficulty">
+          <button data-d="chill" aria-pressed="true"><b>Chill</b><span>6 things</span></button>
+          <button data-d="baked" aria-pressed="false"><b>Baked</b><span>8 things</span></button>
+          <button data-d="blazed" aria-pressed="false"><b>Blazed</b><span>10 things</span></button>
+        </div>
+        <p class="diff-desc" id="diffDesc"></p>
+      </div>
+      <div class="card rank">
+        <div class="rank-top"><div class="rank-badge" id="rankBadge">1</div><div><div class="rank-name" id="rankName">Fresh Sprout</div><div class="rank-sub" id="rankSub"></div></div></div>
+        <div class="bar"><i id="rankBar"></i></div>
+        <div class="daily-row"><div><b id="dailyTitle">Daily Sesh</b><br><span id="dailySub">Same pile for everyone, new every day.</span></div><span id="streak"></span></div>
+      </div>
+    </div>
+    <div id="chapters"></div>
+    <section class="chapter" id="mine">
+      <div class="ch-head"><h2><small>Your artscapes</small>Made by you</h2><span>Build a scene, share the link, dare your friends.</span></div>
+      <div class="shelf" id="mineShelf"></div>
+    </section>
+    <div class="how">
+      <div><b>Read the list</b>Chill shows you pictures. Baked gives you names. Blazed only gives you riddle clues.</div>
+      <div><b>Tap fast for combos</b>Find things within 6 seconds of each other to stack a combo, up to ×5 points.</div>
+      <div><b>Get on the board</b>Beat a top-10 score and put your initials on the worldwide high score board.</div>
+    </div>
+    <footer class="foot">
+      <span>High Spy is for adults 21+ where cannabis is legal. Please enjoy responsibly. It's just a game.</span>
+      <span>Every item was modeled or 3D-scanned and rendered for High Spy. Hi-Def photo textures and many real-world objects are photoscans from <a href="https://polyhaven.com" target="_blank" rel="noopener">Poly Haven</a> (CC0). Some household objects are scans from <a href="https://arxiv.org/abs/2204.11918" target="_blank" rel="noopener">Google Scanned Objects</a> (CC BY 4.0).</span>
+    </footer>
+  </main>
+</section>
+
+<!-- ================= GAME ================= -->
+<section id="game" hidden>
+  <header class="gbar">
+    <button class="ibtn" id="backBtn" aria-label="Back to menu"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span class="lbl">Menu</span></button>
+    <div class="gtitle"><b id="gName"></b><small id="gSub"></small></div>
+    <div class="score"><b id="score" class="tnum">0</b><small>Score</small></div>
+    <span class="clock" id="clock"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg><span id="timer">0:00</span></span>
+    <button class="ibtn" id="musicBtn" aria-label="Music"><svg class="i" viewBox="0 0 24 24" id="musIcon"></svg></button>
+    <button class="ibtn" id="soundBtn" aria-label="Sound on"><svg class="i" viewBox="0 0 24 24" id="sndIcon"></svg></button>
+  </header>
+  <div class="gmain">
+    <div class="view" id="view" aria-label="Hidden object picture">
+      <div class="world" id="world">
+        <canvas id="bgc" class="bgc" aria-hidden="true"></canvas>
+        <canvas id="cv" role="img" aria-label="A pile of objects to search through"></canvas>
+        <div class="vignette"></div>
+        <div class="fx" id="fx"></div>
+      </div>
+      <div class="darkness" id="dark" hidden></div>
+      <div class="busy" id="busy" hidden><span>Rolling up the scene…</span></div>
+      <div class="intro" id="intro" hidden><div><div class="big" id="introBig">3</div><div class="sub" id="introSub"></div></div></div>
+      <div class="zlevel" id="zlevel">1×</div>
+      <div class="zoomctl">
+        <button id="zIn" aria-label="Zoom in"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button id="zOut" aria-label="Zoom out"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+        <button id="zFit" aria-label="Show whole picture"><svg class="i" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      </div>
+    </div>
+    <aside class="panel" id="panel">
+      <div class="ispy-wrap"><h2 class="ispy">High spy…</h2><div class="ispy-sub" id="ispySub"></div></div>
+      <div class="prow"><div class="pbar"><i id="pfill"></i></div><span class="pcount" id="pcount">0 of 6</span>
+        <button class="ibtn mobile-only" id="hintBtn2" aria-label="Hint"><svg class="i" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg><span id="hintLeft2"></span></button></div>
+      <div class="combo" id="combo"><b id="comboX">×1</b><div class="cbar"><i id="comboBar"></i></div><small>Find the next one fast</small></div>
+      <ul class="finds" id="finds" aria-live="polite"></ul>
+      <button class="hintbtn" id="hintBtn"><svg class="i" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>Hint <small id="hintLeft"></small></button>
+      <p class="tips" id="tips">Scroll or pinch to zoom, drag to look around. Keys: H hint, + and − zoom, 0 whole picture.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= STUDIO ================= -->
+<section class="sheet" id="studio" hidden>
+  <div class="sheet-bar"><button class="ibtn" id="studioBack" aria-label="Back"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><h2>Artscape Studio</h2></div>
+  <div class="sheet-in">
+    <div class="studio">
+      <div>
+        <div class="preview" id="preview"><canvas id="pvc"></canvas><div class="pvname" id="pvName"></div></div>
+        <p style="color:var(--muted);font-weight:600;margin:12px 2px 0">Pick a background, a style and what goes in the pile. Hit Shuffle until it looks wild, then play it or send the link to a friend.</p>
+      </div>
+      <div class="controls">
+        <div class="field"><label class="label" for="stName">Name</label><input type="text" id="stName" maxlength="24" placeholder="My trippy masterpiece"></div>
+        <div class="field"><div class="label">Background</div><div class="swatches" id="stSurface"></div></div>
+        <div class="field"><div class="label">Style</div><div class="chips" id="stLayout"></div></div>
+        <div class="field"><div class="label">What's in the pile</div><div class="chips" id="stGroups"></div></div>
+        <div class="field"><div class="label">Density</div><input class="range" type="range" id="stDensity" min="0" max="2" step="1" value="1"><div class="rangelbl"><span>Spacious</span><span>Normal</span><span>Packed</span></div></div>
+        <div class="field"><div class="label">Trippy effect</div><div class="chips" id="stFx"></div></div>
+        <div class="field"><div class="label">Lights</div><div class="chips" id="stDark"><button data-v="0" aria-pressed="true">Lights on</button><button data-v="1" aria-pressed="false">Lights out (flashlight)</button></div></div>
+        <div class="studio-actions">
+          <button class="btn btn-ghost" id="stShuffle">Shuffle</button>
+          <button class="btn btn-ghost" id="stShare">Copy share link</button>
+          <button class="btn btn-ghost" id="stSave">Save</button>
+          <button class="btn btn-gold" id="stPlay">Play it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TROPHIES ================= -->
+<section class="sheet" id="trophies" hidden>
+  <div class="sheet-bar"><button class="ibtn" data-close aria-label="Back"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><h2>Trophy Room</h2><span id="trophyCount" class="tag"></span></div>
+  <div class="sheet-in"><div class="statgrid" id="statGrid"></div><div class="trophies" id="trophyGrid"></div></div>
+</section>
+
+<!-- ================= HALL OF FAME ================= -->
+<section class="sheet" id="hof" hidden>
+  <div class="sheet-bar"><button class="ibtn" data-close aria-label="Back"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><h2>High Scores</h2></div>
+  <div class="sheet-in">
+    <div class="hof-pick"><select id="hofScene" aria-label="Scene"></select><div class="seg" id="hofDiff" style="min-width:280px"><button data-d="chill" aria-pressed="true"><b>Chill</b></button><button data-d="baked" aria-pressed="false"><b>Baked</b></button><button data-d="blazed" aria-pressed="false"><b>Blazed</b></button></div></div>
+    <div class="boards"><div class="board"><h3>Worldwide</h3><ol class="lb" id="hofGlobal"></ol></div><div class="board"><h3>On this device</h3><ol class="lb" id="hofLocal"></ol></div></div>
+  </div>
+</section>
+
+<!-- ================= SETTINGS ================= -->
+<section class="sheet" id="settings" hidden>
+  <div class="sheet-bar"><button class="ibtn" data-close aria-label="Back"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><h2>Settings</h2></div>
+  <div class="sheet-in"><div class="setlist">
+    <div class="setrow"><div><b>Sound effects</b><span>Chimes, combos and the countdown.</span></div><button class="switch" id="setSfx" aria-label="Sound effects"></button></div>
+    <div class="setrow"><div><b>Lo-fi music</b><span>A mellow loop while you hunt.</span></div><button class="switch" id="setMusic" aria-label="Music"></button></div>
+    <div class="setrow"><div><b>Trippy motion</b><span>Moving, color-shifting backgrounds on the trippy levels.</span></div><button class="switch" id="setFx" aria-label="Trippy motion"></button></div>
+    <div class="setrow" style="flex-direction:column;align-items:stretch"><div><b>Save code</b><span>Your progress saves on this device automatically. Copy this code to move it to another phone or computer.</span></div>
+      <textarea class="code" id="saveCode" readonly></textarea>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost" id="copySave">Copy save code</button></div></div>
+    <div class="setrow" style="flex-direction:column;align-items:stretch"><div><b>Load a save</b><span>Paste a save code here. This replaces the progress on this device.</span></div>
+      <textarea class="code" id="loadCode" placeholder="Paste your save code"></textarea>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-gold" id="loadSave">Load save</button></div></div>
+    <div class="setrow"><div><b>Full game</b><span id="fullSub">Coffee Table is free. Unlock the rest with the code you get on itch.io.</span></div><button class="btn btn-gold" id="setUnlock">Enter code</button></div>
+    <div class="setrow"><div><b>Start over</b><span>Erase stars, trophies, scores and artscapes on this device.</span></div><button class="btn btn-ghost" id="resetAll">Erase</button></div>
+  </div></div>
+</section>
+
+<!-- ================= RESULT ================= -->
+<div class="overlay" id="endOv" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="endTitle">
+    <div class="bigstars" id="endStars"></div>
+    <h2 id="endTitle">Nailed it!</h2>
+    <p class="sub" id="endSub"></p>
+    <div class="bigscore" id="endScore">0</div>
+    <div id="endBadge"></div>
+    <div class="initials" id="initBox" hidden>
+      <h3 id="initTitle">New high score!</h3><p id="initSub">Put your initials on the board.</p>
+      <div class="initrow"><input id="initIn" maxlength="3" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Your initials"><button class="btn btn-gold" id="initSave">Save</button></div>
+    </div>
+    <div class="breakdown" id="endBreak"></div>
+    <div class="lbwrap" id="endLbWrap" hidden><h4 id="endLbTitle">Worldwide top 10</h4><ol class="lb" id="endLb"></ol></div>
+    <div class="rankline"><div class="rl"><span id="endRank"></span><span id="endRankNext"></span></div><div class="bar"><i id="endRankBar"></i></div></div>
+    <div class="mact"><button class="btn btn-ghost" id="againBtn">Play again</button><button class="btn btn-gold" id="nextBtn">Next spot</button></div>
+    <button class="btn btn-ghost" id="shareBtn" hidden style="width:100%;margin-top:10px">Copy my result</button>
+    <button class="linkbtn" id="menuBtn">Back to menu</button>
+  </div>
+</div>
+
+<div class="overlay" id="sharedOv" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="sharedTitle">
+    <h2 id="sharedTitle">Someone made you a scene</h2>
+    <p class="sub" id="sharedSub"></p>
+    <div class="preview" style="margin:6px 0 4px"><canvas id="sharedCv"></canvas></div>
+    <div class="mact"><button class="btn btn-ghost" id="sharedEdit">Open in Studio</button><button class="btn btn-gold" id="sharedPlay">Play it</button></div>
+    <button class="linkbtn" id="sharedClose">Not now</button>
+  </div>
+</div>
+
+<div class="overlay" id="buyOv" hidden>
+  <div class="modal buy" role="dialog" aria-modal="true" aria-labelledby="buyTitle">
+    <div class="buylock"><svg class="i" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+    <h2 id="buyTitle">Unlock the whole stash</h2>
+    <p class="sub" id="buySub">Coffee Table is on the house. The full game is $1, one time.</p>
+    <ul class="buylist" id="buyList"></ul>
+    <a class="btn btn-gold buygo" id="buyGo" href="#" target="_blank" rel="noopener">Buy on itch.io · $1</a>
+    <div class="codebox">
+      <p>Already bought it? Your unlock code is in the download on itch.io.</p>
+      <div class="coderow"><input id="codeIn" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="UNLOCK CODE" aria-label="Unlock code"><button class="btn btn-ghost" id="codeGo">Unlock</button></div>
+      <p class="codemsg" id="codeMsg" role="status"></p>
+    </div>
+    <button class="linkbtn" id="buyClose">Not now</button>
+  </div>
+</div>
+
+<div class="overlay gate" id="gate" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <h2 id="gateTitle">Hold up.</h2>
+    <p>High Spy is a game about cannabis culture, made for grown-ups. Are you 21 or older?</p>
+    <div class="mact"><button class="btn btn-gold" id="gateYes">Yes, I'm 21+</button><button class="btn btn-ghost" id="gateNo">Not yet</button></div>
+    <p id="gateMsg" hidden>No worries. Come back when you're 21. The pile will still be here.</p>
+  </div>
+</div>
+<canvas id="confetti" hidden></canvas>
+<noscript><p style="padding:40px;text-align:center">High Spy needs JavaScript to play.</p></noscript>
+<script>window.HS_CFG = window.HS_CFG || {};</script>
+<script src="app.js?v=6" defer></script>
+</body>
+</html>
